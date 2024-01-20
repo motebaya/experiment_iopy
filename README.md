@@ -14,22 +14,33 @@ for that, i was really curious, so i tested it by calling sync and async functio
 10 times, and honestly, there was nothing difference.
 it just made me waste a lot of time writing more complex code.
 
-- asyncio python3.10 -> https://docs.python.org/3.10/library/asyncio-task.html
-- threadpool python3.10 -> https://docs.python.org/3.10/library/asyncio-task.html
-- many help -> https://stackoverflow.com/a/70459437/
-
 In I/O testing, there are a lot of dependencies that make the results vary,
 like the Python version (there are many performance testing articles on Python, for example,
 Python 3.12, which they say is faster than the previous versions, and so on),
 the speed of the HDD/SSD in reading files (especially if the file is over 1GB),
 and the internet speed or server speed.
 
-Here, I don't really care about the GIL issue in Python because,
-this is just I/O testing, and the Python GIL only applies to CPU testing.
+Here, I don't really care about the [GIL](https://en.wikipedia.org/wiki/Global_interpreter_lock) issue in Python because,
+this is just I/O testing, and the [Python GIL](https://wiki.python.org/moin/GlobalInterpreterLock) only applies to CPU testing.
 But I also found something interesting, because in Python 3.13 and above, there's no GIL anymore.
-cc: https://stackoverflow.com/a/77519536/
+
+asyncio py3.10: https://docs.python.org/3.10/library/asyncio-task.html
+
+threadpool py3.10: https://docs.python.org/3.10/library/asyncio-task.html
+
+many help: https://stackoverflow.com/a/70459437/
+
+speedtest files: https://downloadtestfile.com/
+
+python nogil:
+
+- https://stackoverflow.com/a/77519536/
+- https://peps.python.org/pep-0703/
+- https://developer.vonage.com/en/blog/removing-pythons-gil-its-happening
 
 I'm trying to take the average results after repeating it several times.
+
+### demo
 
  <details>
  <summary>
@@ -63,9 +74,6 @@ I'm trying to take the average results after repeating it several times.
 ![demo](src/demo-313.svg)
 
  </details>
-
-speedtest files: https://downloadtestfile.com/
-average internet speed: >=7MBps
 
 ## License
 
