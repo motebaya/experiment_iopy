@@ -6,9 +6,14 @@ because there are quite a few modules that can do that, like multiprocessing, th
 and, instead of wasting too much time to meet my needs,
 i came to the simple conclusion below that can be easily understood.
 
-- **sync (I/O block)** -> _threadpool_ -> parallel/concurrency run in different thread and in same event loop.
-- **async (I/O non block)** -> _asyncio gather_ -> parallel/concurrency run in single thread and in same event loop.
-- there's nothing any significant advantage if calling an asynchronous function without parallelism.
+- **sync (I/O block)** -> _threadpool_ -> parallelism == concurrent -> not shared event loop -> different thread == independently.
+- actually using `threading` are more best for CPU bound with synchronization and coordination between tasks. 
+- _concurrent programs can be parallel, but not all concurrent programs are parallel._
+- _parallel programs can be concurrent, but not all parallel programs are concurrent._
+  from: https://www.linkedin.com/advice/0/whats-difference-between-concurrent-parallel-programming
+- **async (I/O non block)** -> _asyncio gather_ -> concurrency -> run in single thread and in same event loop.
+- **async** best for I/O? because there's no need waiting http request till complete and all tasks run overlapping in the same event loop.
+- there's nothing any significant advantage if calling an asynchronous function for once, it's only best for multiple tasks.
 
 for that, i was really curious, so i tested it by calling sync and async functions inside a for loop
 10 times, and honestly, there was nothing difference.
@@ -74,6 +79,9 @@ I'm trying to take the average results after repeating it several times.
 ![demo](src/demo-313.svg)
 
  </details>
+
+> [!NOTE]
+> Perhaps there's some explanation lacking or even incorrect. i've jusst learned through what i have used in each of my projects out of curiosity about how they all work as well. i hope if someone who knowledgeable about concurrent/parallelism sees this, they'll join in to correct it. 
 
 ## License
 
